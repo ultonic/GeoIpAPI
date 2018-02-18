@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Mockery\Exception;
 
 class GeoIpController extends Controller
@@ -17,12 +18,13 @@ class GeoIpController extends Controller
     public function getData(Request $request)
     {
         try {
-            // Ищем информацию по указанному IP адресу
-            $location = \SypexGeo::get($this->ip);
+            // Ищем информацию по указанному IP адресу в кеше, если нет, получаем из базы SypexGeo и кладем в кеш
+            $location = Cache::remember('location', 30, function () {
+                return \SypexGeo::get($this->ip);
+            });
 
             if (!$location)
-                // Если не найдена информация – выводим пустую 404
-                return response('', 404);
+                return response('', 404); // Если не найдена информация – выводим пустую 404
             else
                 print json_encode($location);
 
