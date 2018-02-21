@@ -18,3 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('api.check')->get('/ip2geo', 'GeoIpController@getData');
+
+Route::get('/getRate', function (Request $request) {
+    $rate = App\Rate::with('booking', 'inspection', 'parking', 'trip')->find(1)->toJson();
+
+    dd(json_decode($rate));
+});
