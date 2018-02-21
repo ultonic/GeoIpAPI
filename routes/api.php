@@ -19,8 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware('api.check')->get('/ip2geo', 'GeoIpController@getData');
 
-Route::get('/getRate', function (Request $request) {
-    $rate = App\Rate::with('booking', 'inspection', 'parking', 'trip')->find(1)->toJson();
+Route::middleware('api.rates')->get('/getRate', function (Request $request) {
+    try {
+        if ($rate = App\Rate::with('booking', 'inspection', 'parking', 'trip')->find($request->get('id')))
+            dd(json_decode($rate->toJson()));
+        else
+            print json_encode(['error' => 0, 'code' => '404', 'message' => 'Результат не найден']);
+    } catch (Exception $e) {
+        print json_encode(['error' => 1, 'code' => $e->getCode(), 'message' => $e->getMessage()]);
+    }
 
-    dd(json_decode($rate));
 });
