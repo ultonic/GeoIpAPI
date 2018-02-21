@@ -21,10 +21,13 @@ Route::middleware('api.check')->get('/ip2geo', 'GeoIpController@getData');
 
 Route::middleware('api.rates')->get('/getRate', function (Request $request) {
     try {
-        if ($rate = App\Rate::with('booking', 'inspection', 'parking', 'trip')->find($request->get('id')))
+        if ($rate = App\Rate::with('automodel', 'booking', 'inspection', 'parking', 'trip')->find($request->get('id'))) {
+
             dd(json_decode($rate->toJson()));
-        else
+
+        } else {
             print json_encode(['error' => 0, 'code' => '404', 'message' => 'Результат не найден']);
+        }
     } catch (Exception $e) {
         print json_encode(['error' => 1, 'code' => $e->getCode(), 'message' => $e->getMessage()]);
     }
