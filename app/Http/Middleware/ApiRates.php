@@ -15,7 +15,7 @@ class ApiRates
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->get('ip')) {
+        if (!$request->get('id')) {
             return response()->json(['error' => 1, 'code' => '400', 'message' => 'Отсутствует обязательный параметр – id']);
         }
 
