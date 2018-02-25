@@ -1,4 +1,6 @@
 <?php
 
-Route::resource('rates', 'RatesAPIController');
+Route::resource('rates', 'RatesAPIController', ['only' => [
+    'index', 'show'
+]]);
 

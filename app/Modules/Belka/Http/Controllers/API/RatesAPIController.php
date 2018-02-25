@@ -24,6 +24,9 @@ class RatesAPIController extends Controller {
     }
 
     public function show($id) {
+        if (!is_numeric($id))
+            return response()->json(['error' => ['code' => 400, 'message' => 'The request data is invalid']], 400);
+
         return ($rate = $this->rate->find($id)) ? new RateResource($rate) : response()->json(['error' => ['code' => 404, 'message' => 'Resource not found']], 404);
 
     }
