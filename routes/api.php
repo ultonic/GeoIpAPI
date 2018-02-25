@@ -17,7 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('api.check')->get('/ip2geo', 'GeoIpController@getData');
 
 Route::middleware('api.rates')->get('/getRate', function (Request $request) {
     try {

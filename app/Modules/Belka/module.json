@@ -1,0 +1,16 @@
+{
+    "name": "Belka",
+    "alias": "belka",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Belka\\Providers\\BelkaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

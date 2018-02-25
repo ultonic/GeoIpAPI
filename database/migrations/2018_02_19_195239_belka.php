@@ -57,6 +57,7 @@ class Belka extends Migration
             $table->string('status');
             $table->integer('car_id');
             $table->integer('customer_id');
+            $table->integer('additional_option_id')->default(0);
             $table->integer('rate_id');
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
